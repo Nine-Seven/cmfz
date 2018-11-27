@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.MenuMapper">
+
+    <resultMap id="BaseResultMap" type="com.entity.Menu">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="icon_Cls" jdbcType="VARCHAR" property="iconCls"/>
+        <result column="parend_id" jdbcType="INTEGER" property="parendId"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <collection property="menus" ofType="com.entity.Menu">
+            <id column="cid" jdbcType="INTEGER" property="id"/>
+            <result column="ctit" jdbcType="VARCHAR" property="title"/>
+            <result column="cicon" jdbcType="VARCHAR" property="iconCls"/>
+            <result column="curl" jdbcType="VARCHAR" property="url"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select a.*,b.id cid,b.title ctit,b.icon_Cls cicon,b.url curl
+        from cmfz_menu a
+                 left join cmfz_menu b
+                           on a.id = b.parend_id
+        where a.parend_id is null
+    </select>
+
+</mapper>
