@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.CarouselMapper">
+    <resultMap id="BaseResultMap" type="com.entity.Carousel">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="img_path" jdbcType="VARCHAR" property="imgPath"/>
+        <result column="carousel_desc" jdbcType="VARCHAR" property="desc"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="date" jdbcType="TIMESTAMP" property="date"/>
+    </resultMap>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+            *
+        from cmfz_carousel
+    </select>
+    <insert id="insert" parameterType="com.entity.Carousel">
+        insert into cmfz_carousel (title, img_path,
+                                   carousel_desc, status, date)
+        values (#{title,jdbcType=VARCHAR}, #{imgPath,jdbcType=VARCHAR},
+                #{desc,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, now())
+    </insert>
+
+
+    <update id="updateStatus" parameterType="com.entity.Carousel">
+        update cmfz_carousel
+        set status = #{status,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

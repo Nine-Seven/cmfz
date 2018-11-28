@@ -1,14 +1,16 @@
 ﻿<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>持名法州主页</title>
     <link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="../themes/IconExtension.css">
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/themes/icon.css"/>
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="../js/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/datagrid-detailview.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.edatagrid.js"></script>
     <script type="text/javascript">
         function openPage(url, title) {
             var isExists = $("#tt").tabs("exists", title);
@@ -20,8 +22,10 @@
                 $("#tt").tabs("add", {
                     title: title,
                     closable: true,
+                    selected: true,
                     iconCls: "icon-edit",
-                    content: '<iframe src="${pageContext.request.contextPath}/pages/' + url + '" width="100%" height="100%"></iframe>'
+                    //content: '<iframe src="${pageContext.request.contextPath}/pages/' + url + '" width="100%" height="100%"></iframe>'
+                    href: "${pageContext.request.contextPath}/pages/" + url
                 });
             }
         }
@@ -34,8 +38,8 @@
                 for (var i = 0; i < data.length; i++) {
                     var str = "";
                     for (var j = 0; j < data[i].menus.length; j++) {
-                        str += "<a style='margin-left: 30px' href='javascript:void(0)' onclick='openPage(\"" + data[i].menus[j].url + "\",\"" +
-                            data[i].menus[j].title + "\")'>" + data[i].menus[j].title + "</a>" + "<br/>";
+                        str += "<p style='text-align: center'><a  href='javascript:void(0)' onclick='openPage(\"" + data[i].menus[j].url + "\",\"" +
+                            data[i].menus[j].title + "\")'>" + data[i].menus[j].title + "</a><p>";
                     }
                     // alert(str)
                     $('#aa').accordion('add', {
@@ -54,6 +58,7 @@
     </script>
 
 </head>
+
 <body class="easyui-layout">
 <div data-options="region:'north',split:true" style="height:60px;background-color:  #5C160C">
     <div style="font-size: 24px;color: #FAF7F7;font-family: 楷体;font-weight: 900;width: 500px;float:left;padding-left: 20px;padding-top: 10px">
