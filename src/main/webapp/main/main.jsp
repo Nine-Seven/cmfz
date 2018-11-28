@@ -11,13 +11,19 @@
     <script type="text/javascript" src="../js/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript">
         function openPage(url, title) {
-            // alert(url + "111111111" + title);
-            $("#tt").tabs("add", {
-                title: title,
-                closable: true,
-                iconCls: "icon-edit",
-                content: '<iframe src="${pageContext.request.contextPath}/pages/' + url + '" width="100%" height="100%"></iframe>'
-            });
+            var isExists = $("#tt").tabs("exists", title);
+            //alert(isExists)
+            if (isExists) {
+                //存在
+                $("#tt").tabs("select", title);
+            } else {
+                $("#tt").tabs("add", {
+                    title: title,
+                    closable: true,
+                    iconCls: "icon-edit",
+                    content: '<iframe src="${pageContext.request.contextPath}/pages/' + url + '" width="100%" height="100%"></iframe>'
+                });
+            }
         }
 
         <!--菜单处理-->

@@ -6,7 +6,6 @@
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="title" jdbcType="VARCHAR" property="title"/>
         <result column="icon_Cls" jdbcType="VARCHAR" property="iconCls"/>
-        <result column="parend_id" jdbcType="INTEGER" property="parendId"/>
         <result column="url" jdbcType="VARCHAR" property="url"/>
         <collection property="menus" ofType="com.entity.Menu">
             <id column="cid" jdbcType="INTEGER" property="id"/>
@@ -20,8 +19,8 @@
         select a.*,b.id cid,b.title ctit,b.icon_Cls cicon,b.url curl
         from cmfz_menu a
                  left join cmfz_menu b
-                           on a.id = b.parend_id
-        where a.parend_id is null
+                           on a.id = b.parent_id
+        where a.parent_id is null
     </select>
 
 </mapper>

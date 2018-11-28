@@ -9,7 +9,7 @@ public class Menu {
 
     private String iconCls;
 
-    private Integer parendId;
+    private Integer parentId;
 
     private String url;
 
@@ -47,12 +47,12 @@ public class Menu {
         this.iconCls = iconCls == null ? null : iconCls.trim();
     }
 
-    public Integer getParendId() {
-        return parendId;
+    public Integer getParentId() {
+        return parentId;
     }
 
-    public void setParendId(Integer parendId) {
-        this.parendId = parendId;
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
     }
 
     public String getUrl() {
