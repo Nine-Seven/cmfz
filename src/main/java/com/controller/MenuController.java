@@ -14,6 +14,7 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
+
     @RequestMapping("menu")
     public @ResponseBody
     List selectAll() {
