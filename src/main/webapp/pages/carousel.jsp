@@ -69,9 +69,8 @@
             },
             success: function (data) {
                 if (data == "true") {
-
                     $("#addProdia").dialog("close");
-                    $('#prodatagrid').datagrid("reload");
+                    $('#dg').datagrid("reload");
                 } else {
                     $.messager.alert('提示', '添加失败！', 'warning');
                 }

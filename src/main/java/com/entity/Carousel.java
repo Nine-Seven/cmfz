@@ -2,9 +2,10 @@ package com.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Carousel {
+public class Carousel implements Serializable {
     private Integer id;
 
     private String title;

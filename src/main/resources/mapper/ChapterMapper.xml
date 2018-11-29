@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ChapterMapper">
+    <resultMap id="BaseResultMap" type="com.entity.Chapter">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="size" jdbcType="DOUBLE" property="size"/>
+        <result column="duration" jdbcType="VARCHAR" property="duration"/>
+        <result column="downPath" jdbcType="VARCHAR" property="downPath"/>
+        <result column="uploadDate" jdbcType="TIMESTAMP" property="uploadDate"/>
+        <result column="pid" jdbcType="INTEGER" property="pid"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.entity.Chapter">
+        insert into cmfz_chapter (id, title, size,
+                                  duration, downPath, uploadDate,
+                                  pid)
+        values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{size,jdbcType=DOUBLE},
+                #{duration,jdbcType=VARCHAR}, #{downPath,jdbcType=VARCHAR}, #{uploadDate,jdbcType=TIMESTAMP},
+                #{pid,jdbcType=INTEGER})
+    </insert>
+
+</mapper>
