@@ -15,8 +15,8 @@
         insert into cmfz_chapter (id, title, size,
                                   duration, downPath, uploadDate,
                                   pid)
-        values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{size,jdbcType=DOUBLE},
-                #{duration,jdbcType=VARCHAR}, #{downPath,jdbcType=VARCHAR}, #{uploadDate,jdbcType=TIMESTAMP},
+        values (UUID(), #{title,jdbcType=VARCHAR}, #{size,jdbcType=DOUBLE},
+                #{duration,jdbcType=VARCHAR}, #{downPath,jdbcType=VARCHAR}, now(),
                 #{pid,jdbcType=INTEGER})
     </insert>
 

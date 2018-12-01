@@ -1,6 +1,7 @@
 package com.service.impl;
 
 import com.dao.AlbumMapper;
+import com.entity.Album;
 import com.entity.Carousel;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -28,5 +29,10 @@ public class AlbumServiceImpl implements AlbumService {
         map.put("total", pageInfo.getTotal());
         map.put("rows", pageInfo.getList());
         return map;
+    }
+
+    @Override
+    public void insert(Album album) {
+        albumMapper.insert(album);
     }
 }

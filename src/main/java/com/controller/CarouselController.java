@@ -3,6 +3,7 @@ package com.controller;
 
 import com.entity.Carousel;
 import com.service.CarouselService;
+import com.util.RenameUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.Map;
-import java.util.UUID;
 
 @RestController
 public class CarouselController {
@@ -35,11 +35,7 @@ public class CarouselController {
         }
     }
 
-    private String rename(String picFileName) {
-        String uuid = UUID.randomUUID().toString();
-        String subFile = picFileName.substring(picFileName.lastIndexOf('.'));
-        return uuid + subFile;
-    }
+
 
 
     @RequestMapping("addCarousel")
@@ -49,7 +45,7 @@ public class CarouselController {
         //获取images绝对路径
         String path = request.getServletContext().getRealPath("img");
         //文件重命名
-        String newFileName = rename(picFileName);
+        String newFileName = RenameUtil.rename(picFileName);
         //创建File对象
         File destFile = new File(path + "/" + newFileName);
         try {

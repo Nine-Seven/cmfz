@@ -4,21 +4,25 @@
     <resultMap id="BaseResultMap" type="com.entity.Album">
         <id column="pid" jdbcType="INTEGER" property="id"/>
         <result column="ptitle" jdbcType="VARCHAR" property="title"/>
-        <result column="coverImg" jdbcType="VARCHAR" property="coverimg"/>
+        <result column="coverImg" jdbcType="VARCHAR" property="coverImg"/>
         <result column="count" jdbcType="INTEGER" property="count"/>
         <result column="score" jdbcType="VARCHAR" property="score"/>
         <result column="author" jdbcType="VARCHAR" property="author"/>
         <result column="broadCast" jdbcType="VARCHAR" property="broadcast"/>
         <result column="brief" jdbcType="VARCHAR" property="brief"/>
         <result column="publishDate" jdbcType="TIMESTAMP" property="publishDate"/>
-        <collection property="children" ofType="com.entity.Chapter">
-            <id column="id" jdbcType="VARCHAR" property="id"/>
-            <result column="title" jdbcType="VARCHAR" property="title"/>
-            <result column="size" jdbcType="DOUBLE" property="size"/>
-            <result column="duration" jdbcType="VARCHAR" property="duration"/>
-            <result column="downPath" jdbcType="VARCHAR" property="downPath"/>
-            <result column="uploadDate" jdbcType="TIMESTAMP" property="uploadDate"/>
+        <collection property="children" ofType="com.entity.Chapter" select="getChapter" column="{id = pid}">
+
         </collection>
+    </resultMap>
+
+    <resultMap id="map" type="com.entity.Chapter">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="size" jdbcType="DOUBLE" property="size"/>
+        <result column="duration" jdbcType="VARCHAR" property="duration"/>
+        <result column="downPath" jdbcType="VARCHAR" property="downPath"/>
+        <result column="uploadDate" jdbcType="TIMESTAMP" property="uploadDate"/>
     </resultMap>
 
     <select id="selectAll" resultMap="BaseResultMap">
@@ -31,12 +35,16 @@
             p.author,
             p.broadCast,
             p.brief,
-            p.publishDate,
-            c.*
+            p.publishDate
         FROM
             cmfz_album p
-                LEFT JOIN cmfz_chapter c ON p.id = c.pid
+
     </select>
+    <select id="getChapter" resultMap="map">
+        SELECT *
+        FROM cmfz_chapter
+    </select>
+
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete
@@ -48,7 +56,7 @@
         insert into cmfz_album (title, coverImg,
                                 count, score, author,
                                 broadCast, brief)
-        values (#{title,jdbcType=VARCHAR}, #{coverimg,jdbcType=VARCHAR},
+        values (#{title,jdbcType=VARCHAR}, #{coverImg,jdbcType=VARCHAR},
                 #{count,jdbcType=INTEGER}, #{score,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR},
                 #{broadcast,jdbcType=VARCHAR}, #{brief,jdbcType=VARCHAR})
     </insert>

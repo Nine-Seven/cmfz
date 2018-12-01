@@ -11,7 +11,7 @@ public class Album implements Serializable {
 
     private String title;
 
-    private String coverimg;
+    private String coverImg;
 
     private Integer count;
 
@@ -52,12 +52,12 @@ public class Album implements Serializable {
         this.title = title == null ? null : title.trim();
     }
 
-    public String getCoverimg() {
-        return coverimg;
+    public String getCoverImg() {
+        return coverImg;
     }
 
-    public void setCoverimg(String coverimg) {
-        this.coverimg = coverimg == null ? null : coverimg.trim();
+    public void setCoverImg(String coverImg) {
+        this.coverImg = coverImg;
     }
 
     public Integer getCount() {
@@ -113,7 +113,7 @@ public class Album implements Serializable {
         return "Album{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", coverimg='" + coverimg + '\'' +
+                ", coverImg='" + coverImg + '\'' +
                 ", count=" + count +
                 ", score='" + score + '\'' +
                 ", author='" + author + '\'' +

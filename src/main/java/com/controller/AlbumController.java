@@ -1,17 +1,19 @@
 package com.controller;
 
+import com.entity.Album;
 import com.service.AlbumService;
+import com.util.RenameUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.Map;
-import java.util.UUID;
 
 @Controller
 public class AlbumController {
@@ -26,17 +28,33 @@ public class AlbumController {
     }
 
 
-    private String rename(String picFileName) {
-        String uuid = UUID.randomUUID().toString();
-        String subFile = picFileName.substring(picFileName.lastIndexOf('.'));
-        return uuid + subFile;
-    }
 
 
     @RequestMapping("addAlbum")
     public @ResponseBody
-    boolean addAlbum() {
-        return false;
+    boolean addAlbum(Album album, MultipartFile pic, HttpServletRequest request) {
+
+        String path = request.getServletContext().getRealPath("img");
+
+        //获取文件名
+        String picName = pic.getOriginalFilename();
+        //获取images绝对路径
+        //文件重命名
+        String newFileName = RenameUtil.rename(picName);
+        //创建File对象
+        File destFile = new File(path + "/" + newFileName);
+        try {
+            pic.transferTo(destFile);
+            //最后添加,防止拷贝文件出错
+            album.setCoverImg(newFileName);
+            albumService.insert(album);
+        } catch (Exception e) {
+            //添加出错后删除拷贝的文件
+            destFile.delete();
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
 
